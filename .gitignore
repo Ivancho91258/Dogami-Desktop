@@ -1,0 +1,7 @@
+# Compilados de Maven
+target/
+
+# Configuraciones de editores
+.vscode/
+.idea/
+*.iml
