@@ -14,10 +14,11 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/iogami/dogami/view/main-view.fxml"));
         
         // Creamos la escena pasándole el diseño cargado desde el FXML
-        Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
+        Scene scene = new Scene(fxmlLoader.load());
 
         primaryStage.setTitle("DOgami - Área de Trabajo");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
