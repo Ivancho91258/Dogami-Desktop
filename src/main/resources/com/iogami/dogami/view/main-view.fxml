@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="863.0" prefWidth="1497.0" style="-fx-background-color: #9b9b9b;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="863.0" prefWidth="1497.0" style="-fx-background-color: #9b9b9b;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iogami.dogami.controller.MainController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="36.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
          <children>
