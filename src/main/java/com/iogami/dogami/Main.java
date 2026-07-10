@@ -1,19 +1,20 @@
 package com.iogami.dogami;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import java.io.IOException;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-        // Un panel básico vacío
-        StackPane root = new StackPane();
+    public void start(Stage primaryStage) throws IOException {
+        // Cargamos el archivo FXML desde la carpeta de recursos usando una ruta absoluta
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/iogami/dogami/view/main-view.fxml"));
         
-        // Creamos la escena principal
-        Scene scene = new Scene(root, 1024, 768);
+        // Creamos la escena pasándole el diseño cargado desde el FXML
+        Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
 
         primaryStage.setTitle("DOgami - Área de Trabajo");
         primaryStage.setScene(scene);
