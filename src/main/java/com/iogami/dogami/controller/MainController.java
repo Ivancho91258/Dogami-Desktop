@@ -13,6 +13,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import java.util.Optional;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.shape.Line;
+import javafx.scene.paint.Color;
+import javafx.scene.control.ToggleButton;
 
 public class MainController {
 
@@ -20,12 +23,19 @@ public class MainController {
     @FXML
     private TabPane tabPaneProyectos;
 
+    @FXML
+    private ToggleButton btnHerramientaLinea;
+
     private int contadorProyectos = 1; //Se nombran las Ventanas, 1, 2, 3, 4..
+    private double inicioX, inicioY;
+    private Line lineaActual;
+
 
     @FXML
     public void crearNuevoProyecto(ActionEvent event){
         //Se crea la pestaña principal del proyecto
         Tab tabProyecto = new Tab("Proyecto " + contadorProyectos);
+
         BorderPane borderPaneInterno = new BorderPane();
 
         //Se crea el contenido interno del proyecto
@@ -77,11 +87,16 @@ public class MainController {
         Tab tabPagina = new Tab(titulo);
 
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-background: #E0E0E0;");
 
         Pane lienzoDibujo = new Pane();
+        lienzoDibujo.setPrefSize(816, 1056);
+
         lienzoDibujo.setStyle("-fx-background-color: white;");
+
+        lienzoDibujo.setOnMousePressed(this::iniciarDibujo);
+        lienzoDibujo.setOnMouseDragged(this::arrastrarDibujo);
+        lienzoDibujo.setOnMouseReleased(this::finalizarDibujo);
 
         scrollPane.setContent(lienzoDibujo);
         tabPagina.setContent(scrollPane);
@@ -128,6 +143,38 @@ public class MainController {
         menuOpciones.getItems().addAll(opcionRenombrar, opcionDuplicar, opcionCerrar);
         tabPagina.setContextMenu(menuOpciones);
         return tabPagina;
+    }
+
+    private void iniciarDibujo(MouseEvent event){
+
+        //Verificación del botón linea
+        if (btnHerramientaLinea == null || !btnHerramientaLinea.isSelected()) {
+            return;
+        }
+
+        //Se guardan las coordenadas iniciales
+        inicioX = event.getX();
+        inicioY = event.getY();
+
+        lineaActual = new Line(inicioX, inicioY, inicioX, inicioY);
+        lineaActual.setStroke(Color.BLACK);
+        lineaActual.setStrokeWidth(2.0);
+
+        Pane lienzo = (Pane) event.getSource();
+        lienzo.getChildren().add(lineaActual);
+
+    }
+
+    private void arrastrarDibujo(MouseEvent event){
+        if (lineaActual != null){
+            lineaActual.setEndX(event.getX());
+            lineaActual.setEndY(event.getY());
+
+        }
+    }
+
+    private void finalizarDibujo(MouseEvent event){
+        lineaActual = null;
     }
 
     @FXML
