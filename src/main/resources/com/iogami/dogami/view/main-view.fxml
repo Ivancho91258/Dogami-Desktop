@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -117,75 +121,90 @@
       </MenuBar>
    </top>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="808.0" prefWidth="46.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="802.0" prefWidth="134.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
          <children>
             <Separator prefHeight="10.0" prefWidth="46.0" />
-            <GridPane alignment="TOP_CENTER" hgap="2.0" vgap="2.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Rectangle fx:id="color00" arcHeight="5.0" arcWidth="5.0" fill="#d50000" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" />
-                  <Rectangle fx:id="color11" arcHeight="5.0" arcWidth="5.0" fill="#ff8a90" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Rectangle fx:id="color01" arcHeight="5.0" arcWidth="5.0" fill="#ff1744" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="1" />
-                  <Rectangle fx:id="color02" arcHeight="5.0" arcWidth="5.0" fill="#ff3d00" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="2" />
-                  <Rectangle fx:id="color10" arcHeight="5.0" arcWidth="5.0" fill="#ff8a80" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" />
-                  <Rectangle fx:id="color12" arcHeight="5.0" arcWidth="5.0" fill="#ff9e80" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Rectangle fx:id="color03" arcHeight="5.0" arcWidth="5.0" fill="#ff9100" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="3" />
-                  <Rectangle fx:id="color15" arcHeight="5.0" arcWidth="5.0" fill="#ffff8d" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Rectangle fx:id="color05" arcHeight="5.0" arcWidth="5.0" fill="#ffea00" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="5" />
-                  <Rectangle fx:id="color14" arcHeight="5.0" arcWidth="5.0" fill="#ffe57f" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Rectangle fx:id="color04" arcHeight="5.0" arcWidth="5.0" fill="#ffc400" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="4" />
-                  <Rectangle fx:id="color13" arcHeight="5.0" arcWidth="5.0" fill="#ffd180" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Rectangle fx:id="color06" arcHeight="5.0" arcWidth="5.0" fill="#76ff03" height="20.0" layoutX="10.0" layoutY="9.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="6" />
-                  <Rectangle fx:id="color111" arcHeight="5.0" arcWidth="5.0" fill="#8c9eff" height="20.0" layoutX="31.0" layoutY="29.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                  <Rectangle fx:id="color011" arcHeight="5.0" arcWidth="5.0" fill="#3d5afe" height="20.0" layoutX="10.0" layoutY="29.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="11" />
-                  <Rectangle fx:id="color110" arcHeight="5.0" arcWidth="5.0" fill="#82b1ff" height="20.0" layoutX="10.0" layoutY="49.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <Rectangle fx:id="color010" arcHeight="5.0" arcWidth="5.0" fill="#2979ff" height="20.0" layoutX="31.0" layoutY="9.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="10" />
-                  <Rectangle fx:id="color19" arcHeight="5.0" arcWidth="5.0" fill="#84ffff" height="20.0" layoutX="31.0" layoutY="49.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Rectangle fx:id="color09" arcHeight="5.0" arcWidth="5.0" fill="#00b0ff" height="20.0" layoutX="10.0" layoutY="69.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="9" />
-                  <Rectangle fx:id="color18" arcHeight="5.0" arcWidth="5.0" fill="#a7ffeb" height="20.0" layoutX="31.0" layoutY="109.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Rectangle fx:id="color08" arcHeight="5.0" arcWidth="5.0" fill="#1de9b6" height="20.0" layoutX="10.0" layoutY="109.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="8" />
-                  <Rectangle fx:id="color17" arcHeight="5.0" arcWidth="5.0" fill="#b9f6ca" height="20.0" layoutX="31.0" layoutY="89.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <Rectangle fx:id="color07" arcHeight="5.0" arcWidth="5.0" fill="#00e676" height="20.0" layoutX="10.0" layoutY="89.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="7" />
-                  <Rectangle fx:id="color16" arcHeight="5.0" arcWidth="5.0" fill="#ccff90" height="20.0" layoutX="31.0" layoutY="69.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Rectangle fx:id="color012" arcHeight="5.0" arcWidth="5.0" fill="#651fff" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="12" />
-                  <Rectangle fx:id="color116" arcHeight="5.0" arcWidth="5.0" fill="#9e9e9e" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                  <Rectangle fx:id="color115" arcHeight="5.0" arcWidth="5.0" fill="#e0e0e0" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                  <Rectangle fx:id="color114" arcHeight="5.0" arcWidth="5.0" fill="WHITESMOKE" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <Rectangle fx:id="color113" arcHeight="5.0" arcWidth="5.0" fill="#ff80ab" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                  <Rectangle fx:id="color112" arcHeight="5.0" arcWidth="5.0" fill="#b388ff" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                  <Rectangle fx:id="color016" arcHeight="5.0" arcWidth="5.0" fill="#616161" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="16" />
-                  <Rectangle fx:id="color015" arcHeight="5.0" arcWidth="5.0" fill="#424242" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="15" />
-                  <Rectangle fx:id="color014" arcHeight="5.0" arcWidth="5.0" fill="#212121" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="14" />
-                  <Rectangle fx:id="color013" arcHeight="5.0" arcWidth="5.0" fill="#f50057" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.rowIndex="13" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="10" />
-               </children>
+            <TitledPane fx:id="panelPropiedadesColor" text="Propiedades de Color">
                <VBox.margin>
-                  <Insets left="2.0" right="2.0" />
+                  <Insets />
                </VBox.margin>
-            </GridPane>
-            <Separator layoutX="10.0" layoutY="35.0" prefHeight="10.0" prefWidth="46.0" />
+               <content>
+                  <GridPane alignment="TOP_CENTER" hgap="2.0" maxWidth="65.0" prefHeight="400.0" prefWidth="65.0" vgap="2.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="64.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="64.0" minWidth="10.0" prefWidth="64.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Rectangle fx:id="color00" arcHeight="5.0" arcWidth="5.0" fill="#d50000" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color11" arcHeight="5.0" arcWidth="5.0" fill="#ff8a90" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color01" arcHeight="5.0" arcWidth="5.0" fill="#ff1744" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color02" arcHeight="5.0" arcWidth="5.0" fill="#ff3d00" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color10" arcHeight="5.0" arcWidth="5.0" fill="#ff8a80" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color12" arcHeight="5.0" arcWidth="5.0" fill="#ff9e80" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color03" arcHeight="5.0" arcWidth="5.0" fill="#ff9100" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color15" arcHeight="5.0" arcWidth="5.0" fill="#ffff8d" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color05" arcHeight="5.0" arcWidth="5.0" fill="#ffea00" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color14" arcHeight="5.0" arcWidth="5.0" fill="#ffe57f" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color04" arcHeight="5.0" arcWidth="5.0" fill="#ffc400" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color13" arcHeight="5.0" arcWidth="5.0" fill="#ffd180" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color06" arcHeight="5.0" arcWidth="5.0" fill="#76ff03" height="20.0" layoutX="10.0" layoutY="9.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color111" arcHeight="5.0" arcWidth="5.0" fill="#8c9eff" height="20.0" layoutX="31.0" layoutY="29.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color011" arcHeight="5.0" arcWidth="5.0" fill="#3d5afe" height="20.0" layoutX="10.0" layoutY="29.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color110" arcHeight="5.0" arcWidth="5.0" fill="#82b1ff" height="20.0" layoutX="10.0" layoutY="49.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color010" arcHeight="5.0" arcWidth="5.0" fill="#2979ff" height="20.0" layoutX="31.0" layoutY="9.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color19" arcHeight="5.0" arcWidth="5.0" fill="#84ffff" height="20.0" layoutX="31.0" layoutY="49.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color09" arcHeight="5.0" arcWidth="5.0" fill="#00b0ff" height="20.0" layoutX="10.0" layoutY="69.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color18" arcHeight="5.0" arcWidth="5.0" fill="#a7ffeb" height="20.0" layoutX="31.0" layoutY="109.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color08" arcHeight="5.0" arcWidth="5.0" fill="#1de9b6" height="20.0" layoutX="10.0" layoutY="109.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color17" arcHeight="5.0" arcWidth="5.0" fill="#b9f6ca" height="20.0" layoutX="31.0" layoutY="89.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color07" arcHeight="5.0" arcWidth="5.0" fill="#00e676" height="20.0" layoutX="10.0" layoutY="89.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color16" arcHeight="5.0" arcWidth="5.0" fill="#ccff90" height="20.0" layoutX="31.0" layoutY="69.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color012" arcHeight="5.0" arcWidth="5.0" fill="#651fff" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color116" arcHeight="5.0" arcWidth="5.0" fill="#9e9e9e" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color115" arcHeight="5.0" arcWidth="5.0" fill="#e0e0e0" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color114" arcHeight="5.0" arcWidth="5.0" fill="WHITESMOKE" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color113" arcHeight="5.0" arcWidth="5.0" fill="#ff80ab" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color112" arcHeight="5.0" arcWidth="5.0" fill="#b388ff" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color016" arcHeight="5.0" arcWidth="5.0" fill="#616161" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color015" arcHeight="5.0" arcWidth="5.0" fill="#424242" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color014" arcHeight="5.0" arcWidth="5.0" fill="#212121" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER" />
+                        <Rectangle fx:id="color013" arcHeight="5.0" arcWidth="5.0" fill="#f50057" height="20.0" onMouseClicked="#seleccionarColor" stroke="TRANSPARENT" strokeType="INSIDE" width="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER" />
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="10" />
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+            <Separator layoutX="10.0" layoutY="35.0" prefHeight="10.0" prefWidth="134.0" />
+            <TitledPane fx:id="panelPropiedadesLinea" text="Propiedades de Línea">
+               <content>
+                  <VBox alignment="TOP_CENTER" prefHeight="127.0" prefWidth="50.0" spacing="5.0" style="-fx-background-color: #d3d3d3;">
+                     <children>
+                        <ComboBox fx:id="comboTipoLinea" prefWidth="110.0" />
+                        <Spinner fx:id="spinnerGrosorLinea" prefWidth="110.0" />
+                        <ColorPicker fx:id="colorPickerLinea" prefWidth="110.0" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
          </children>
          <padding>
             <Insets top="25.0" />
@@ -209,7 +228,7 @@
                         <content>
                               <ScrollPane fitToHeight="true" fitToWidth="true">
                                  <content>
-                                <AnchorPane />
+                                <AnchorPane prefHeight="744.0" prefWidth="1428.0" />
                                  </content>
                               </ScrollPane>
                         </content>

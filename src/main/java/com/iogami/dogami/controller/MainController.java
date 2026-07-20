@@ -16,12 +16,33 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.shape.Line;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.TitledPane;
 
 public class MainController {
 
     // Enlace TabPane principal de Scene Builder
     @FXML
     private TabPane tabPaneProyectos;
+
+    @FXML
+    private ComboBox<String> comboTipoLinea;
+
+    @FXML
+    private Spinner<Double> spinnerGrosorLinea;
+
+    @FXML
+    private ColorPicker colorPickerLinea;
+
+    @FXML
+    private TitledPane panelPropiedadesLinea;
+
+    @FXML
+    private TitledPane panelPropiedadesColor;
 
     @FXML
     private ToggleButton btnHerramientaLinea;
@@ -121,7 +142,39 @@ public class MainController {
         MenuItem opcionDuplicar = new MenuItem("Duplicar");
         opcionDuplicar.setOnAction(e -> {
             TabPane contenedorPadre = tabPagina.getTabPane();
+            //Se crea la nueva pestaña
             Tab pestañaCopia = crearNuevaPagina(tabPagina.getText() + " (Copia)");
+
+            //Extraemos el contenido de la página para duplicarlo
+            ScrollPane scrollOriginal = (ScrollPane) tabPagina.getContent();
+            Pane lienzoOriginal = (Pane) scrollOriginal.getContent();
+
+            ScrollPane scrollCopia = (ScrollPane) pestañaCopia.getContent ();
+            Pane lienzoCopia = (Pane) scrollCopia.getContent();
+            
+            //Recorremos los vectores dibujados en el lienzo original
+            for (javafx.scene.Node nodo : lienzoOriginal.getChildren()) {
+
+                //verificamos si el trazo es una linea
+                if (nodo instanceof Line) {
+                    Line lineaOriginal = (Line) nodo;
+                    //Creamos la nueva linea con las mismas coordenadas
+                    Line cloneLine = new Line (
+                        lineaOriginal.getStartX(),
+                        lineaOriginal.getStartY(),
+                        lineaOriginal.getEndX(),
+                        lineaOriginal.getEndY()
+                    );
+
+                    //Duplicamos las propiedades de las lineas
+                    cloneLine.setStroke(lineaOriginal.getStroke());
+                    cloneLine.setStrokeWidth(lineaOriginal.getStrokeWidth());
+                    cloneLine.getStrokeDashArray().addAll(lineaOriginal.getStrokeDashArray());
+
+                    //Se añade el clon de las lineas a la nueva página
+                    lienzoCopia.getChildren().add(cloneLine);
+                }
+            }
             //Se insterda al lado de la página original
             contenedorPadre.getTabs().add(contenedorPadre.getTabs().indexOf(tabPagina) + 1, pestañaCopia);
             contenedorPadre.getSelectionModel().select(pestañaCopia);
@@ -157,8 +210,19 @@ public class MainController {
         inicioY = event.getY();
 
         lineaActual = new Line(inicioX, inicioY, inicioX, inicioY);
-        lineaActual.setStroke(Color.BLACK);
-        lineaActual.setStrokeWidth(2.0);
+        lineaActual.setStroke(colorPickerLinea.getValue());
+        lineaActual.setStrokeWidth(spinnerGrosorLinea.getValue());
+
+        String tipoLinea = comboTipoLinea.getValue();
+
+        if ("Pliegue en Valle".equals(tipoLinea)){
+            lineaActual.getStrokeDashArray().addAll(10d, 10d);
+
+        } else if ("Pliegue en Montaña".equals(tipoLinea)) {
+            lineaActual.getStrokeDashArray().addAll(20d, 5d, 3d, 5d);
+        } else if ("Rayos X".equals(tipoLinea)){
+            lineaActual.getStrokeDashArray().addAll(2d, 5d);
+        }
 
         Pane lienzo = (Pane) event.getSource();
         lienzo.getChildren().add(lineaActual);
@@ -182,6 +246,21 @@ public class MainController {
         
         System.out.println("Controlador de DOgami inicializado");
 
+        //Propiedades de la linea
+        comboTipoLinea.getItems().addAll("Solida","Pliegue en Valle","Pliegue en Montaña","Rayos X");
+        comboTipoLinea.getSelectionModel().selectFirst();
+
+        //Configuración de los tamaños del spinner
+        SpinnerValueFactory<Double> factory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 2.0, 0.5);
+        spinnerGrosorLinea.setValueFactory(factory);
+
+        colorPickerLinea.setValue(Color.BLACK);
+
+        //Código para mostrar el panel de propiedades solo cuando se selecciona la linea
+
+        panelPropiedadesLinea.visibleProperty().bind(btnHerramientaLinea.selectedProperty());
+        panelPropiedadesLinea.managedProperty().bind(panelPropiedadesLinea.visibleProperty());
+    
         //Se eliminan las pestañas fantasma
         tabPaneProyectos.getTabs().clear();
 
