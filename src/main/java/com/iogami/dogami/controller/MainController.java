@@ -109,17 +109,36 @@ public class MainController {
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setStyle("-fx-background: #E0E0E0;");
+        //Centrar el lienzo
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
 
+        //Configuración del tamaño del lienzo
         Pane lienzoDibujo = new Pane();
         lienzoDibujo.setPrefSize(816, 1056);
+        lienzoDibujo.setMaxSize(816, 1056);
 
         lienzoDibujo.setStyle("-fx-background-color: white;");
 
+        //Clipping, evitara trazos fuera del lienzo
+        javafx.scene.shape.Rectangle mascaraRecorte = new javafx.scene.shape.Rectangle(816, 1056);
+        lienzoDibujo.setClip(mascaraRecorte);
+
+        //-----------------
+        
         lienzoDibujo.setOnMousePressed(this::iniciarDibujo);
         lienzoDibujo.setOnMouseDragged(this::arrastrarDibujo);
         lienzoDibujo.setOnMouseReleased(this::finalizarDibujo);
 
-        scrollPane.setContent(lienzoDibujo);
+        //Grupo para mantener el lienzo de un tamaño fijo:
+        javafx.scene.Group grupoEnvoltorio = new javafx.scene.Group(lienzoDibujo);
+
+        //StackPane para centrar el lienzo
+        javafx.scene.layout.StackPane contenedorCentrado = new javafx.scene.layout.StackPane(grupoEnvoltorio);
+        contenedorCentrado.setStyle("-fx-backgroun-color: #E0E0E0;");
+
+        //Se guarda el StackPane en el ScrollPane
+        scrollPane.setContent(contenedorCentrado);
         tabPagina.setContent(scrollPane);
         
         //opciones click derecho de la página
