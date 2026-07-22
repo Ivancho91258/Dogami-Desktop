@@ -19,44 +19,54 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TitledPane;
 
 public class MainController {
 
     // Enlace TabPane principal de Scene Builder
-    @FXML
-    private TabPane tabPaneProyectos;
+    @FXML private TabPane tabPaneProyectos;
 
-    @FXML
-    private ComboBox<String> comboTipoLinea;
+    //Paneles de propiedades
+    @FXML private TitledPane panelPropiedadesLinea;
+    @FXML private TitledPane panelPropiedadesPoligono;
+    @FXML private TitledPane panelPropiedadesElipse;
 
-    @FXML
-    private Spinner<Double> spinnerGrosorLinea;
+    //Propiedades de las líneas
+    @FXML private ComboBox<String> comboTipoLinea;
+    @FXML private ColorPicker colorPickerLinea;
+    @FXML private Spinner<Double> spinnerGrosorLinea;
+    @FXML private Spinner<Double> spinnerLongitudLinea;
+    @FXML private ComboBox<String> comboAnguloLinea;
 
-    @FXML
-    private ColorPicker colorPickerLinea;
+    //Propiedades de los polígonos
+    @FXML private Spinner<Integer> spinnerLadosPoligono;
+    @FXML private ColorPicker colorPickerBordePoligono;
+    @FXML private ColorPicker colorPickerRellenoPoligono;
+    @FXML private Spinner<Double> spinnerGrosorPoligono;
+    @FXML private Spinner<Double> spinnerTamanoPoligono;
+    @FXML private ComboBox<String> comboTipoLineaPoligono;
+    @FXML private ComboBox<String> comboAnguloPoligono;
+    
+    //Propiedades de las elipses / circulos
+    @FXML private CheckBox checkCirculoPerfecto;
+    @FXML private ColorPicker colorPickerBordeElipse;
+    @FXML private ColorPicker colorPickerRellenoElipse;
+    @FXML private Spinner<Double> spinnerGrosorElipse;
 
-    @FXML
-    private TitledPane panelPropiedadesLinea;
+    //Enlaces botones de las herramientas
+    @FXML private ToggleButton btnHerramientaLinea;
+    @FXML private ToggleButton btnHerramientaPoligono;
+    @FXML private ToggleButton btnHerramientaCirculo;
 
-    @FXML
-    private ToggleButton btnHerramientaLinea;
-
-    @FXML
-    private ToggleButton btnHerramientaPoligono;
-
-    @FXML
-    private ToggleButton btnHerramientaCirculo;
-
-    private javafx.scene.shape.Ellipse elipseActual;
+    @FXML private javafx.scene.shape.Ellipse elipseActual;
 
     private int contadorProyectos = 1; //Se nombran las Ventanas, 1, 2, 3, 4..
     private double inicioX, inicioY;
     private Line lineaActual;
 
     private javafx.scene.shape.Polygon poligonoActual;
-    private int ladoPoligono = 4;
 
 
     @FXML
@@ -231,13 +241,13 @@ public class MainController {
         inicioY = event.getY();
 
         Pane lienzo = (Pane) event.getSource();
-        
+
         //Lógica de la linea
         if (btnHerramientaLinea != null && btnHerramientaLinea.isSelected()){
             lineaActual = new Line(inicioX, inicioY, inicioX, inicioY);
             lineaActual.setStroke(colorPickerLinea.getValue());
             lineaActual.setStrokeWidth(spinnerGrosorLinea.getValue());
-
+            
             String tipoLinea = comboTipoLinea.getValue();
 
             if ("Pliegue en Valle".equals(tipoLinea)){
@@ -245,6 +255,7 @@ public class MainController {
 
             } else if ("Pliegue en Montaña".equals(tipoLinea)) {
                 lineaActual.getStrokeDashArray().addAll(20d, 5d, 3d, 5d);
+
             } else if ("Rayos X".equals(tipoLinea)){
                 lineaActual.getStrokeDashArray().addAll(2d, 5d);
             }
@@ -257,14 +268,29 @@ public class MainController {
         else if (btnHerramientaPoligono != null && btnHerramientaPoligono.isSelected()){
             poligonoActual = new javafx.scene.shape.Polygon();
 
-            //Polígono base, bordes visibles y fondo transparente
+            //Propiedades de los Polígonos
+            poligonoActual.setStroke(colorPickerBordePoligono.getValue());
+            poligonoActual.setStrokeWidth(spinnerGrosorPoligono.getValue());
+            poligonoActual.setFill(colorPickerRellenoPoligono.getValue());
 
-            poligonoActual.setStroke(javafx.scene.paint.Color.BLACK);
-            poligonoActual.setStrokeWidth(2.0);
-            poligonoActual.setFill(javafx.scene.paint.Color.WHITE);
+            //Esquinas redondeadas en los poligonos, mejora el diseño
+            poligonoActual.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
+            poligonoActual.setStrokeLineCap(javafx.scene.shape.StrokeLineCap.ROUND);
+
+            String tipoLineaP = comboTipoLineaPoligono.getValue();
+            
+            if ("Pliegue en Valle".equals(tipoLineaP)){
+                poligonoActual.getStrokeDashArray().addAll(10d, 10d);
+
+            } else if ("Pliegue en Montaña".equals(tipoLineaP)) {
+                poligonoActual.getStrokeDashArray().addAll(20d, 5d, 3d, 5d);
+
+            } else if ("Rayos X".equals(tipoLineaP)){
+                poligonoActual.getStrokeDashArray().addAll(2d, 5d);
+            }
 
             lienzo.getChildren().add(poligonoActual);
-        }
+        }            
 
         //Lógica de los circulos / elipses
         else if (btnHerramientaCirculo != null && btnHerramientaCirculo.isSelected()){
@@ -278,10 +304,10 @@ public class MainController {
             elipseActual.setRadiusX(0);
             elipseActual.setRadiusY(0);
 
-            //Propiedades iniciales
-            elipseActual.setStroke(javafx.scene.paint.Color.BLACK);
-            elipseActual.setStrokeWidth(2.0);
-            elipseActual.setFill(javafx.scene.paint.Color.WHITE);
+            //Propiedades de las Elipses / Círculos
+            elipseActual.setStroke(colorPickerBordeElipse.getValue());
+            elipseActual.setStrokeWidth(spinnerGrosorElipse.getValue());
+            elipseActual.setFill(colorPickerRellenoElipse.getValue());
 
             lienzo.getChildren().add(elipseActual);
 
@@ -290,50 +316,104 @@ public class MainController {
     }
     
     private void arrastrarDibujo(MouseEvent event){
-        
-        //Trazo de la linea
+        double actualX = event.getX();
+        double actualY = event.getY();
+
+        //Conversión de 96 DPI: 1 mm = 3.78 px
+        double pxPorMm = 3.78;
+
+        //TRAZO DE LA LÍNEA
         if (btnHerramientaLinea != null && btnHerramientaLinea.isSelected() && lineaActual != null){
-            lineaActual.setEndX(event.getX());
-            lineaActual.setEndY(event.getY());
+            double dx = actualX - inicioX;
+            double dy = actualY - inicioY;
+            double anguloCalculado = Math.atan2(dy, dx);
+            double distanciaPx = Math.hypot(dx, dy);
+
+            //Evaluar la restricción del ángulo seleccionado
+
+            String anguloSeleccionado = comboAnguloLinea.getValue();
+            if (anguloSeleccionado != null && !"Libre".equals(anguloSeleccionado)){
+                double anguloRestriccion = 0;
+
+                //Conversión de angulos a radianes
+                if ("22.5°".equals(anguloSeleccionado)) anguloRestriccion = Math.toRadians(22.5);
+                else if ("45°".equals(anguloSeleccionado)) anguloRestriccion = Math.toRadians(45);
+                else if ("67.5°".equals(anguloSeleccionado)) anguloRestriccion = Math.toRadians(67.5);
+                else if ("90°".equals(anguloSeleccionado)) anguloRestriccion = Math.toRadians(90);
+
+                //Se fuerza matemáticamente el ángulo más cercano
+                long multiplo = Math.round(anguloCalculado / anguloRestriccion);
+                anguloCalculado = multiplo * anguloRestriccion;
+            }
+            //Aplicamos las coordenadas definitivas a la línea
+            lineaActual.setEndX(inicioX + distanciaPx * Math.cos(anguloCalculado));
+            lineaActual.setEndY(inicioY + distanciaPx * Math.sin(anguloCalculado));
+
+            //Actualiza el spinner en tiempo real
+            double distanciaMm = Math.round((distanciaPx / pxPorMm) * 10.0) / 10.0;
+            spinnerLongitudLinea.getValueFactory().setValue(distanciaMm);
 
         }
 
         //Trazo del polígono
 
         else if (btnHerramientaPoligono != null && btnHerramientaPoligono.isSelected()  && poligonoActual != null){
-            double actualX = event.getX();
-            double actualY = event.getY();
-
             //Cálculo de las distancia / radio desde el click inicial hasta los bordes
-            double radio = Math.hypot(actualX - inicioX, actualY - inicioY);
-
-            //Cálculo de los angulos para permitir rotar el cuadrado mientras se dibuja
+            double radioPx = Math.hypot(actualX - inicioX, actualY - inicioY);
             double anguloInicial = Math.atan2(actualY - inicioY, actualX - inicioX);
 
-            Double[] puntos = new Double[ladoPoligono * 2];
+            //Lógica de los ángulos
+            String anguloSeleccionado = comboAnguloPoligono.getValue();
+            if (anguloSeleccionado != null && !"Libre".equals(anguloSeleccionado)){
+                double anguloRestriccion = 0;
+
+            //Conversión de angulos a radianes
+                if ("22.5°".equals(anguloSeleccionado)) anguloRestriccion = Math.toRadians(22.5);
+                else if ("45°".equals(anguloSeleccionado)) anguloRestriccion = Math.toRadians(45);
+
+            //Se fuerza matemáticamente el ángulo más cercano
+            long multiplo = Math.round(anguloInicial / anguloRestriccion);
+            anguloInicial = multiplo * anguloRestriccion;
+
+            }
+            //Leer los números dinámicos del spinner
+            int lados = spinnerLadosPoligono.getValue();
+            Double[] puntos = new Double[lados * 2];
 
             //Matemáticas para generar las esquinas del polígono regular
 
-            for (int i = 0; i < ladoPoligono; i++){
-                double angulo = anguloInicial + i * (2 * Math.PI / ladoPoligono);
-                puntos[i * 2] = inicioX + radio * Math.cos(angulo); //Coordenadas X
-                puntos[i * 2 + 1] = inicioY + radio * Math.sin(angulo); //Coordenadas Y
+            for (int i = 0; i < lados; i++){
+                double angulo = anguloInicial + i * (2 * Math.PI / lados);
+                puntos[i * 2] = inicioX + radioPx * Math.cos(angulo); //Coordenadas X
+                puntos[i * 2 + 1] = inicioY + radioPx * Math.sin(angulo); //Coordenadas Y
 
             }
 
-            //Se actualizan los puntos del polígono en el lienzo
             poligonoActual.getPoints().setAll(puntos);
+
+            //Actualizar el spinner en tiempo real
+            double radioMm = Math.round((radioPx / pxPorMm) * 10.0) / 10.0;
+            spinnerTamanoPoligono.getValueFactory().setValue(radioMm);
 
         }
 
         //Trazo del circulo / elipse
         else if (btnHerramientaCirculo != null && btnHerramientaCirculo.isSelected() && elipseActual != null){
-            double actualX = event.getX();
-            double actualY = event.getY();
 
+            //Radio absoluto
+                   
+            double radioX = Math.abs(actualX - inicioX);
+            double radioY = Math.abs(actualY - inicioY);
+
+            if (checkCirculoPerfecto != null && checkCirculoPerfecto.isSelected()){
+
+                double radioMax = Math.max(radioX, radioY);
+                radioX = radioMax;
+                radioY = radioMax;
+            }
             //Horizontal Radio X, Vertical Radio Y, Math.abs para tener el radio siempre positivo
-            elipseActual.setRadiusX(Math.abs(actualX - inicioX));
-            elipseActual.setRadiusY(Math.abs(actualY - inicioY));
+            elipseActual.setRadiusX(radioX);
+            elipseActual.setRadiusY(radioY);
 
         }
 
@@ -354,21 +434,64 @@ public class MainController {
         
         System.out.println("Controlador de DOgami inicializado");
 
-        //Propiedades de la linea
+        //PROPIEDADES LINEA
         comboTipoLinea.getItems().addAll("Solida","Pliegue en Valle","Pliegue en Montaña","Rayos X");
         comboTipoLinea.getSelectionModel().selectFirst();
 
-        //Configuración de los tamaños del spinner
-        SpinnerValueFactory<Double> factory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 2.0, 0.5);
+        comboAnguloLinea.getItems().addAll("Libre", "22.5°", "45°", "67.5°", "90°");
+        comboAnguloLinea.getSelectionModel().selectFirst();
+
+        //Grosor de la linea
+        SpinnerValueFactory<Double> factory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 1.5, 0.5);
         spinnerGrosorLinea.setValueFactory(factory);
 
+        //Longitud de la linea
+        spinnerLongitudLinea.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 500.0, 50.0, 1.0));;
+        
         colorPickerLinea.setValue(Color.BLACK);
 
-        //Código para mostrar el panel de propiedades solo cuando se selecciona la linea
+        //PROPIEDADES POLÍGONOS
+        comboTipoLineaPoligono.getItems().addAll("Solido", "Pliegue en Valle", "Pliegue en Montaña", "Rayos X");
+        comboTipoLineaPoligono.getSelectionModel().selectFirst();
 
+        comboAnguloPoligono.getItems().addAll("Libre", "22.5°", "45°");
+        comboAnguloPoligono.getSelectionModel().selectFirst();
+
+        //Lados Polígono
+        spinnerLadosPoligono.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(3, 20, 4));
+
+        //Grosos borde
+        spinnerGrosorPoligono.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 1.5, 0.5));
+
+        //Tamaño Polígono
+        spinnerTamanoPoligono.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 500.0, 1.0));
+
+        //Colores Polígono
+        colorPickerBordePoligono.setValue(Color.BLACK);
+        colorPickerRellenoPoligono.setValue(Color.TRANSPARENT);
+
+        //PROPIEDADES ELIPSE / CÍRCULO
+        //Grosor Borde
+        spinnerGrosorElipse.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 1.5, 0.5));
+
+        //Color Elipse / Córculo
+        colorPickerBordeElipse.setValue(Color.BLACK);
+        colorPickerRellenoElipse.setValue(Color.TRANSPARENT);
+
+        //LÓGICA VISIBILIDAD PANELES DE PROPIEDADES
+
+        //Panle Línea
         panelPropiedadesLinea.visibleProperty().bind(btnHerramientaLinea.selectedProperty());
         panelPropiedadesLinea.managedProperty().bind(panelPropiedadesLinea.visibleProperty());
-    
+        
+        //Panel Polígono
+        panelPropiedadesPoligono.visibleProperty().bind(btnHerramientaPoligono.selectedProperty());
+        panelPropiedadesPoligono.managedProperty().bind(panelPropiedadesPoligono.visibleProperty());
+
+        //Panel Elipse / Circulo
+        panelPropiedadesElipse.visibleProperty().bind(btnHerramientaCirculo.selectedProperty());
+        panelPropiedadesElipse.managedProperty().bind(panelPropiedadesElipse.visibleProperty());
+
         //Se eliminan las pestañas fantasma
         tabPaneProyectos.getTabs().clear();
 
