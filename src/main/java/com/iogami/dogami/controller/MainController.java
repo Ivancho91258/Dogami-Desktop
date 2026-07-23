@@ -55,12 +55,34 @@ public class MainController {
     @FXML private ColorPicker colorPickerRellenoElipse;
     @FXML private Spinner<Double> spinnerGrosorElipse;
 
+    //Propiedades de la multilínea
+    @FXML private TitledPane panelPropiedadesPolilinea;
+    @FXML private ComboBox<String> comboTipoPolilinea;
+    @FXML private ColorPicker colorPickerPolilinea;
+    @FXML private Spinner<Double> spinnerGrosorPolilinea;
+
+    //Propiedades de las flechas
+    @FXML private TitledPane panelPropiedadesFlecha;
+    @FXML private ComboBox<String> comboTipoFlecha;
+    @FXML private ColorPicker colorPickerFlecha;
+    @FXML private Spinner<Double> spinnerGrosorFlecha;
+
     //Enlaces botones de las herramientas
     @FXML private ToggleButton btnHerramientaLinea;
     @FXML private ToggleButton btnHerramientaPoligono;
     @FXML private ToggleButton btnHerramientaCirculo;
+    @FXML private ToggleButton btnHerramientaFlecha;
 
     @FXML private javafx.scene.shape.Ellipse elipseActual;
+    @FXML private ToggleButton btnHerramientaMultilinea;
+
+    private javafx.scene.shape.Polyline polilineaActual;
+    private boolean dibujandoPolilinea = false; //nos dira si se esta a mitad de un trazo
+
+    //Variables internas que permiten la construcción de la flecha
+    private javafx.scene.Group flechaActual;
+    private Line ejeFlecha;
+    private javafx.scene.shape.Polygon cabezaFlecha;
 
     private int contadorProyectos = 1; //Se nombran las Ventanas, 1, 2, 3, 4..
     private double inicioX, inicioY;
@@ -146,6 +168,7 @@ public class MainController {
         lienzoDibujo.setOnMousePressed(this::iniciarDibujo);
         lienzoDibujo.setOnMouseDragged(this::arrastrarDibujo);
         lienzoDibujo.setOnMouseReleased(this::finalizarDibujo);
+        lienzoDibujo.setOnMouseMoved(this::moverDibujo);
 
         //Grupo para mantener el lienzo de un tamaño fijo:
         javafx.scene.Group grupoEnvoltorio = new javafx.scene.Group(lienzoDibujo);
@@ -312,6 +335,95 @@ public class MainController {
             lienzo.getChildren().add(elipseActual);
 
         }
+
+        //Lógica de la multilinea
+
+        else if (btnHerramientaMultilinea != null && btnHerramientaMultilinea.isSelected()){
+            //Condición de finalización, doble click, click derecho, enter o esc
+            if (event.getClickCount() == 2 || event.getButton() == javafx.scene.input.MouseButton.SECONDARY){
+                if (dibujandoPolilinea && polilineaActual != null){
+                    int size = polilineaActual.getPoints().size();
+                    if(size >= 2){
+                        //Se elimina el punto que sigue el mouse
+                        polilineaActual.getPoints().remove(size - 1); //Y
+                        polilineaActual.getPoints().remove(size - 2); //X
+                    }
+
+                    dibujandoPolilinea = false;
+                    polilineaActual = null;
+                }
+                return; //Se corta el método aca para no generar más puntos
+            }
+
+            //Primer clic, crea el origen de la figura
+            if (!dibujandoPolilinea){
+                polilineaActual = new javafx.scene.shape.Polyline();
+
+                //Aplica sus propiedades
+                javafx.scene.paint.Color colorPoli = colorPickerPolilinea.getValue() != null ? colorPickerPolilinea.getValue() : javafx.scene.paint.Color.BLACK;
+                Double grosorPoli = spinnerGrosorPolilinea.getValue() != null ? spinnerGrosorPolilinea.getValue() : 2.0;
+
+                polilineaActual.setStroke(colorPoli);
+                polilineaActual.setStrokeWidth(grosorPoli);
+
+                polilineaActual.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
+                polilineaActual.setStrokeLineCap(javafx.scene.shape.StrokeLineCap.ROUND);
+
+                String tipo = comboTipoPolilinea.getValue();
+                
+                if ("Pliegue en Valle".equals(tipo)){
+                    polilineaActual.getStrokeDashArray().addAll(10d, 10d);
+                } else if ("Pliegue en Montaña".equals(tipo)) {
+                    polilineaActual.getStrokeDashArray().addAll(20d, 5d, 3d, 5d);
+                } else if ("Rayos X".equals(tipo)){
+                    polilineaActual.getStrokeDashArray().addAll(2d, 5d);
+                }
+
+                polilineaActual.getPoints().addAll(inicioX, inicioY, inicioX, inicioY);
+                lienzo.getChildren().add(polilineaActual);
+                dibujandoPolilinea = true;
+            }
+
+            //Clics sieguente
+            else{
+                polilineaActual.getPoints().addAll(inicioX, inicioY);
+            }
+        }
+
+        //Lógica de las flechas
+        else if (btnHerramientaFlecha != null && btnHerramientaFlecha.isSelected()){
+
+            ejeFlecha = new Line(inicioX, inicioY, inicioX, inicioY);
+            cabezaFlecha = new javafx.scene.shape.Polygon();
+
+            ejeFlecha.setMouseTransparent(true);
+            cabezaFlecha.setMouseTransparent(true);
+
+            //Extraemos las propiedas de las flechas
+            javafx.scene.paint.Color colorF = colorPickerFlecha.getValue() != null ? colorPickerFlecha.getValue() : javafx.scene.paint.Color.BLACK;
+            Double grosorF = spinnerGrosorFlecha.getValue() != null ? spinnerGrosorFlecha.getValue() : 2.0;
+
+            //Configuracion del cuerpo de la flecha (línea)
+            ejeFlecha.setStroke(colorF);
+            ejeFlecha.setStrokeWidth(grosorF);
+            ejeFlecha.setStrokeLineCap(javafx.scene.shape.StrokeLineCap.ROUND);
+
+            //Configuramos la cabeza (flecha)
+            cabezaFlecha.setStroke(colorF);
+            cabezaFlecha.setStrokeWidth(Math.min(grosorF, 2.0));
+            cabezaFlecha.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
+
+            //Propiedad de la cabeza de la flecha (sólida o hueca)
+            String tipo = comboTipoFlecha.getValue();
+            if ("Desdoblar".equals(tipo)){
+                cabezaFlecha.setFill(javafx.scene.paint.Color.WHITE); //Cabeza gueca
+            } else {
+                cabezaFlecha.setFill(colorF); //Cabeza rellena
+            }
+
+            //Se juntan y se crea la flecha
+            lienzo.getChildren().addAll(ejeFlecha, cabezaFlecha);
+        }
     
     }
     
@@ -417,6 +529,72 @@ public class MainController {
 
         }
 
+        //Trazo de las flechas
+        else if (btnHerramientaFlecha != null && btnHerramientaFlecha.isSelected() && ejeFlecha != null && cabezaFlecha != null){
+
+            //Línea de la flecha
+            ejeFlecha.setEndX(actualX);
+            ejeFlecha.setEndY(actualY);
+            
+            //Cálculo del ángulo del mouse
+            double dx = actualX - inicioX;
+            double dy = actualY - inicioY;
+            double angulo = Math.atan2(dy, dx);
+            double distancia = Math.hypot(dx, dy);
+
+            //Tamaño dinámico de la flecha
+            double grosorLinea = ejeFlecha.getStrokeWidth();
+            double longitudCabeza = 12 + (grosorLinea * 2.0);
+            double mitadBase = 6.0 + (grosorLinea * 1.5);
+
+            if (distancia > 5.0){
+
+                //Generación de la direción de la flecha
+                double puntaX = actualX + longitudCabeza * Math.cos(angulo);
+                double puntaY = actualY + longitudCabeza * Math.sin(angulo);
+
+                //Base de la flecha
+
+                double alaIzqX = actualX + mitadBase * Math.cos(angulo - Math.PI / 2);
+                double alaIzqY = actualY + mitadBase * Math.sin(angulo - Math.PI / 2);
+
+                double alaDerX = actualX + mitadBase * Math.cos(angulo + Math.PI / 2);
+                double alaDerY = actualY + mitadBase * Math.sin(angulo + Math.PI / 2);
+
+                //Polígono flecha
+                cabezaFlecha.getPoints().clear();
+                cabezaFlecha.getPoints().setAll(
+                    puntaX, puntaY,
+                    alaIzqX, alaIzqY,
+                    alaDerX, alaDerY
+
+                );
+                
+                cabezaFlecha.setVisible(true);
+
+            } else {
+                // Si el ratón no se ha movido lo suficiente, ocultamos la cabeza
+                ejeFlecha.setEndX(actualX);
+                ejeFlecha.setEndY(actualY);
+                cabezaFlecha.setVisible(false);
+        }
+
+        }
+
+    }
+
+    @FXML
+    private void moverDibujo(MouseEvent event){
+        //El código solo actua si la herramienta esta seleccionada y estamos a mitad de un trazo
+        if (btnHerramientaMultilinea !=null && btnHerramientaMultilinea.isSelected() && dibujandoPolilinea && polilineaActual != null){
+
+            //Obtenemos todas las coordenadas que hay en la figura
+            int cantidadPuntos = polilineaActual.getPoints().size();
+
+            //Se actualiza la posisión X / Y del último punto para que siga el ratón
+            polilineaActual.getPoints().set(cantidadPuntos - 2, event.getX()); //Penúltimo valor X
+            polilineaActual.getPoints().set(cantidadPuntos - 1, event.getY()); //Último valor Y
+        }
     }
 
     private void finalizarDibujo(MouseEvent event){
@@ -426,7 +604,11 @@ public class MainController {
             poligonoActual = null;
         } else if (btnHerramientaCirculo != null && btnHerramientaCirculo.isSelected()){
             elipseActual = null;
+        } else if (btnHerramientaFlecha != null && btnHerramientaFlecha.isSelected()){
+            ejeFlecha = null;
+            cabezaFlecha = null;
         }
+
     }
 
     @FXML
@@ -478,6 +660,27 @@ public class MainController {
         colorPickerBordeElipse.setValue(Color.BLACK);
         colorPickerRellenoElipse.setValue(Color.TRANSPARENT);
 
+        //PROPIEDADES MULTILÍNEA
+        panelPropiedadesPolilinea.visibleProperty().bind(btnHerramientaMultilinea.selectedProperty());
+        panelPropiedadesPolilinea.managedProperty().bind(panelPropiedadesPolilinea.visibleProperty());
+
+        //Grosor Multilínea
+        spinnerGrosorPolilinea.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 1.5, 0.5));
+        colorPickerPolilinea.setValue(Color.BLACK);
+
+        //Propiedades Multilínea
+        comboTipoPolilinea.getItems().addAll("Solida","Pliegue en Valle","Pliegue en Montaña","Rayos X");
+        comboTipoPolilinea.getSelectionModel().selectFirst();
+
+        //PROPIEDADES FLECHAS
+        //Tipo de flecha
+        comboTipoFlecha.getItems().addAll("Doblar", "Desdoblar");
+        comboTipoFlecha.getSelectionModel().selectFirst();
+
+        //Grosor de la flecha
+        spinnerGrosorFlecha.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 20.0, 2.0, 0.5));
+        colorPickerFlecha.setValue(Color.BLACK);
+
         //LÓGICA VISIBILIDAD PANELES DE PROPIEDADES
 
         //Panle Línea
@@ -491,6 +694,10 @@ public class MainController {
         //Panel Elipse / Circulo
         panelPropiedadesElipse.visibleProperty().bind(btnHerramientaCirculo.selectedProperty());
         panelPropiedadesElipse.managedProperty().bind(panelPropiedadesElipse.visibleProperty());
+
+        //Panel Flechas
+        panelPropiedadesFlecha.visibleProperty().bind(btnHerramientaFlecha.selectedProperty());
+        panelPropiedadesFlecha.managedProperty().bind(panelPropiedadesFlecha.visibleProperty());  
 
         //Se eliminan las pestañas fantasma
         tabPaneProyectos.getTabs().clear();

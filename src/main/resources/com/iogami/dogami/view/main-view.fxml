@@ -40,6 +40,16 @@
                   <FontIcon iconLiteral="fas-slash" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
                </graphic>
             </ToggleButton>
+            <ToggleButton fx:id="btnHerramientaFlecha" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
+               <graphic>
+                  <FontIcon iconLiteral="fas-long-arrow-alt-right" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="btnHerramientaMultilinea" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
+               <graphic>
+                  <FontIcon iconLiteral="fas-pen-nib" wrappingWidth="13.75" />
+               </graphic>
+            </ToggleButton>
             <ToggleButton fx:id="btnHerramientaPoligono" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
                <graphic>
                   <FontIcon iconLiteral="fas-draw-polygon" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
@@ -140,7 +150,28 @@
                   </VBox>
                </content>
             </TitledPane>
-            <Separator layoutX="10.0" layoutY="35.0" prefHeight="10.0" prefWidth="134.0" />
+            <TitledPane fx:id="panelPropiedadesFlecha" layoutX="10.0" layoutY="50.0" text="Propiedades de Flachas">
+               <content>
+                  <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
+                     <children>
+                        <ComboBox fx:id="comboTipoFlecha" prefWidth="110.0" />
+                        <ColorPicker fx:id="colorPickerFlecha" prefWidth="110.0" />
+                        <Spinner fx:id="spinnerGrosorFlecha" prefWidth="110.0" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="panelPropiedadesPolilinea" layoutX="10.0" layoutY="50.0" text="Propiedades de Multilínea">
+               <content>
+                  <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
+                     <children>
+                        <ComboBox fx:id="comboTipoPolilinea" prefWidth="110.0" />
+                        <ColorPicker fx:id="colorPickerPolilinea" prefWidth="110.0" />
+                        <Spinner fx:id="spinnerGrosorPolilinea" prefWidth="110.0" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
             <TitledPane fx:id="panelPropiedadesPoligono" layoutX="10.0" layoutY="50.0" text="Propiedades de Polígono">
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
@@ -156,7 +187,6 @@
                   </VBox>
                </content>
             </TitledPane>
-            <Separator layoutX="10.0" layoutY="208.0" prefHeight="10.0" prefWidth="134.0" />
             <TitledPane fx:id="panelPropiedadesElipse" layoutX="10.0" layoutY="223.0" text="Propiedades Elipse / Circulo">
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
@@ -169,7 +199,6 @@
                   </VBox>
                </content>
             </TitledPane>
-            <Separator layoutX="10.0" layoutY="223.0" prefHeight="10.0" prefWidth="134.0" />
          </children>
          <padding>
             <Insets top="25.0" />
