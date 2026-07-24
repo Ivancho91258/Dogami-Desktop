@@ -21,6 +21,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane prefHeight="1454.0" prefWidth="1900.0" style="-fx-background-color: #9b9b9b;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iogami.dogami.controller.MainController">
@@ -135,9 +136,14 @@
       </MenuBar>
    </top>
    <right>
-      <VBox alignment="TOP_CENTER" maxWidth="200.0" prefHeight="802.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" maxWidth="200.0" prefHeight="552.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Separator layoutX="10.0" layoutY="35.0" prefHeight="10.0" prefWidth="134.0" />
+            <Label fx:id="lblZoomVisual" alignment="CENTER" text="Zoom: 100%" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="18.0" />
+               </font>
+            </Label>
+            <Separator layoutX="10.0" layoutY="35.0" prefHeight="24.0" prefWidth="200.0" />
             <TitledPane fx:id="panelPropiedadesLinea" text="Propiedades de Línea">
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
@@ -208,7 +214,7 @@
             </TitledPane>
             <TitledPane fx:id="panelPropiedadesElipse" layoutX="10.0" layoutY="223.0" text="Propiedades Elipse / Circulo">
                <content>
-                  <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
+                  <VBox alignment="TOP_CENTER" prefWidth="198.0" spacing="5.0" style="-fx-background-color: #d3d3d3;">
                      <children>
                         <CheckBox fx:id="checkCirculoPerfecto" mnemonicParsing="false" text="Circulo / Elipse" />
                         <Label text="Color borde Circulo / Elipse" />
@@ -223,7 +229,7 @@
             </TitledPane>
          </children>
          <padding>
-            <Insets top="25.0" />
+            <Insets top="10.0" />
          </padding>
          <BorderPane.margin>
             <Insets />

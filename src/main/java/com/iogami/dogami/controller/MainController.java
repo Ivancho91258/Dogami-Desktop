@@ -77,6 +77,8 @@ public class MainController {
     @FXML private javafx.scene.shape.Ellipse elipseActual;
     @FXML private ToggleButton btnHerramientaMultilinea;
 
+    @FXML private javafx.scene.control.Label lblZoomVisual;
+
     private javafx.scene.shape.Polyline polilineaActual;
     private boolean dibujandoPolilinea = false; //nos dira si se esta a mitad de un trazo
 
@@ -163,8 +165,6 @@ public class MainController {
         javafx.scene.shape.Rectangle mascaraRecorte = new javafx.scene.shape.Rectangle(816, 1056);
         lienzoDibujo.setClip(mascaraRecorte);
 
-        //-----------------
-
         lienzoDibujo.setOnMousePressed(this::iniciarDibujo);
         lienzoDibujo.setOnMouseMoved(this::actualizarFigura);
         lienzoDibujo.setOnMouseDragged(this::actualizarFigura);
@@ -176,7 +176,68 @@ public class MainController {
         javafx.scene.layout.StackPane contenedorCentrado = new javafx.scene.layout.StackPane(grupoEnvoltorio);
         contenedorCentrado.setStyle("-fx-backgroun-color: #E0E0E0;");
 
-        //Se guarda el StackPane en el ScrollPane
+        //Se ocultan las barras de navegación, se tiene movimiento libre
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setPannable(false);
+
+
+        //Zoom dinámico
+        contenedorCentrado.setOnScroll(event -> {
+            event.consume(); 
+            double factorZoom = 1.1; 
+            if (event.getDeltaY() < 0) {
+                factorZoom = 1 / factorZoom; 
+            }
+
+            double nuevaEscala = grupoEnvoltorio.getScaleX() * factorZoom;
+
+            // Limitadores de Zoom: 10% mínimo, 400% máximo
+            if (nuevaEscala >= 0.1 && nuevaEscala <= 4.0) {
+                grupoEnvoltorio.setScaleX(nuevaEscala);
+                grupoEnvoltorio.setScaleY(nuevaEscala);
+                
+                // ¡AQUÍ ESTÁ EL CAMBIO! Ahora concatena la palabra "Zoom: "
+                if (lblZoomVisual != null) {
+                    lblZoomVisual.setText("Zoom: " + Math.round(nuevaEscala * 100) + "%");
+                }
+            }
+        });
+
+        //Mover el lienzo con el click de la rueda
+        final double[] mouseAnterior = new double[2];
+
+        contenedorCentrado.setOnMousePressed(event -> {
+            if (event.getButton() == javafx.scene.input.MouseButton.MIDDLE) {
+                mouseAnterior[0] = event.getSceneX();
+                mouseAnterior[1] = event.getSceneY();
+                contenedorCentrado.setCursor(javafx.scene.Cursor.CLOSED_HAND); 
+                event.consume();
+            }
+        });
+
+        contenedorCentrado.setOnMouseDragged(event -> {
+            if (event.getButton() == javafx.scene.input.MouseButton.MIDDLE) {
+                double deltaX = event.getSceneX() - mouseAnterior[0];
+                double deltaY = event.getSceneY() - mouseAnterior[1];
+
+                grupoEnvoltorio.setTranslateX(grupoEnvoltorio.getTranslateX() + deltaX);
+                grupoEnvoltorio.setTranslateY(grupoEnvoltorio.getTranslateY() + deltaY);
+
+                mouseAnterior[0] = event.getSceneX();
+                mouseAnterior[1] = event.getSceneY();
+                event.consume();
+            }
+        });
+
+        contenedorCentrado.setOnMouseReleased(event -> {
+            if (event.getButton() == javafx.scene.input.MouseButton.MIDDLE) {
+                contenedorCentrado.setCursor(javafx.scene.Cursor.DEFAULT);
+                event.consume();
+            }
+        });
+
+        // Guardamos el StackPane en el ScrollPane y lo enviamos a la pestaña
         scrollPane.setContent(contenedorCentrado);
         tabPagina.setContent(scrollPane);
         
@@ -253,6 +314,7 @@ public class MainController {
         //Se agregan las opciones a los menus
         menuOpciones.getItems().addAll(opcionRenombrar, opcionDuplicar, opcionCerrar);
         tabPagina.setContextMenu(menuOpciones);
+
         return tabPagina;
     }
     
@@ -300,6 +362,10 @@ public class MainController {
             event.consume();
         }
 
+            return;
+        }
+
+        if (event.getButton() != javafx.scene.input.MouseButton.PRIMARY){
             return;
         }
 
