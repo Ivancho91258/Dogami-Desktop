@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -22,7 +23,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane prefHeight="857.0" prefWidth="1595.0" style="-fx-background-color: #9b9b9b;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iogami.dogami.controller.MainController">
+<BorderPane prefHeight="1454.0" prefWidth="1900.0" style="-fx-background-color: #9b9b9b;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iogami.dogami.controller.MainController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="36.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
          <children>
@@ -37,12 +38,7 @@
             </ToggleButton>
             <ToggleButton fx:id="btnHerramientaLinea" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
                <graphic>
-                  <FontIcon iconLiteral="fas-slash" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
-               </graphic>
-            </ToggleButton>
-            <ToggleButton fx:id="btnHerramientaFlecha" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
-               <graphic>
-                  <FontIcon iconLiteral="fas-long-arrow-alt-right" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
+                  <FontIcon iconLiteral="fas-slash" iconSize="17" textAlignment="CENTER" wrappingWidth="15.0" />
                </graphic>
             </ToggleButton>
             <ToggleButton fx:id="btnHerramientaMultilinea" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
@@ -53,6 +49,11 @@
             <ToggleButton fx:id="btnHerramientaPoligono" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
                <graphic>
                   <FontIcon iconLiteral="fas-draw-polygon" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="btnHerramientaFlecha" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
+               <graphic>
+                  <FontIcon iconLiteral="fas-long-arrow-alt-right" iconSize="17" textAlignment="CENTER" wrappingWidth="20.0" />
                </graphic>
             </ToggleButton>
             <ToggleButton fx:id="btnHerramientaCirculo" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" toggleGroup="$herramientasDibujo">
@@ -134,28 +135,36 @@
       </MenuBar>
    </top>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="802.0" prefWidth="134.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="TOP_CENTER" maxWidth="200.0" prefHeight="802.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: #d3d3d3;" BorderPane.alignment="TOP_CENTER">
          <children>
             <Separator layoutX="10.0" layoutY="35.0" prefHeight="10.0" prefWidth="134.0" />
             <TitledPane fx:id="panelPropiedadesLinea" text="Propiedades de Línea">
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
                      <children>
+                        <Label text="Tipo de pliegue" />
                         <ComboBox fx:id="comboTipoLinea" prefWidth="110.0" />
+                        <Label text="Color de la línea" />
                         <ColorPicker fx:id="colorPickerLinea" prefWidth="110.0" />
+                        <Label text="Grosor de la línea" />
                         <Spinner fx:id="spinnerGrosorLinea" prefWidth="110.0" />
+                        <Label text="Tamaño de la línea" />
                         <Spinner fx:id="spinnerLongitudLinea" layoutX="28.0" layoutY="80.0" prefWidth="110.0" />
+                        <Label text="Ángulo de la línea" />
                         <ComboBox fx:id="comboAnguloLinea" layoutX="28.0" layoutY="20.0" prefWidth="110.0" />
                      </children>
                   </VBox>
                </content>
             </TitledPane>
-            <TitledPane fx:id="panelPropiedadesFlecha" layoutX="10.0" layoutY="50.0" text="Propiedades de Flachas">
+            <TitledPane fx:id="panelPropiedadesFlecha" layoutX="10.0" layoutY="50.0" text="Propiedades de Flechas">
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
                      <children>
+                        <Label text="Tipo de flecha" />
                         <ComboBox fx:id="comboTipoFlecha" prefWidth="110.0" />
+                        <Label text="Color de flecha" />
                         <ColorPicker fx:id="colorPickerFlecha" prefWidth="110.0" />
+                        <Label text="Grosor de flecha" />
                         <Spinner fx:id="spinnerGrosorFlecha" prefWidth="110.0" />
                      </children>
                   </VBox>
@@ -165,8 +174,11 @@
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
                      <children>
+                        <Label text="Tipo de multilínea" />
                         <ComboBox fx:id="comboTipoPolilinea" prefWidth="110.0" />
+                        <Label text="Color de multilínea" />
                         <ColorPicker fx:id="colorPickerPolilinea" prefWidth="110.0" />
+                        <Label text="Grosor de multilínea" />
                         <Spinner fx:id="spinnerGrosorPolilinea" prefWidth="110.0" />
                      </children>
                   </VBox>
@@ -176,12 +188,19 @@
                <content>
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
                      <children>
+                        <Label text="Lados del polígono" />
                         <Spinner fx:id="spinnerLadosPoligono" prefWidth="110.0" />
+                        <Label text="Color borde del polígono" />
                         <ColorPicker fx:id="colorPickerBordePoligono" prefWidth="110.0" />
+                        <Label text="Color relleno del polígono" />
                         <ColorPicker fx:id="colorPickerRellenoPoligono" layoutX="38.0" layoutY="50.0" prefWidth="110.0" />
+                        <Label text="Grosor línea del polígono" />
                         <Spinner fx:id="spinnerGrosorPoligono" layoutX="38.0" layoutY="20.0" prefWidth="110.0" />
+                        <Label text="Tamaño del polígono" />
                         <Spinner fx:id="spinnerTamanoPoligono" layoutX="38.0" layoutY="92.0" prefWidth="110.0" />
+                        <Label text="Tipo línea del polígono" />
                         <ComboBox fx:id="comboTipoLineaPoligono" prefWidth="110.0" />
+                        <Label text="Ángulo del polígono" />
                         <ComboBox fx:id="comboAnguloPoligono" prefWidth="110.0" />
                      </children>
                   </VBox>
@@ -192,8 +211,11 @@
                   <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #d3d3d3;">
                      <children>
                         <CheckBox fx:id="checkCirculoPerfecto" mnemonicParsing="false" text="Circulo / Elipse" />
+                        <Label text="Color borde Circulo / Elipse" />
                         <ColorPicker fx:id="colorPickerBordeElipse" prefWidth="110.0" />
+                        <Label text="Color borde Circulo / Elipse" />
                         <ColorPicker fx:id="colorPickerRellenoElipse" layoutX="45.0" layoutY="42.0" prefWidth="110.0" />
+                        <Label text="Grosor borde Circulo / Elipse" />
                         <Spinner fx:id="spinnerGrosorElipse" prefWidth="110.0" />
                      </children>
                   </VBox>
